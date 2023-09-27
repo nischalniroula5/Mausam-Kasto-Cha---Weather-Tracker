@@ -11,6 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    let color1 = Color(red: 22 / 255, green: 57 / 255, blue: 72 / 255) // #163948
+    let color2 = Color(red: 34 / 255, green: 77 / 255, blue: 88 / 255) // #224d58
+    
     @State private var animateGradient = false
     
     @StateObject var locationManager = LocationManager()
@@ -46,10 +49,10 @@ struct ContentView: View {
                	
             }
             .background(
-                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(gradient: Gradient(colors: [color1, color2]), startPoint: .topLeading, endPoint: .bottomTrailing)
                             .edgesIgnoringSafeArea(.all)
                             .hueRotation(.degrees(animateGradient ? 45 : 0))
-                            .animation(Animation.linear(duration: 4).repeatForever(autoreverses: true), value: animateGradient) // Use animation(_:value:) instead
+                            .animation(Animation.linear(duration: 2).repeatForever(autoreverses: true), value: animateGradient) // Use animation(_:value:) instead
                             .onAppear {
                                 withAnimation {
                                     animateGradient.toggle() // Use withAnimation block

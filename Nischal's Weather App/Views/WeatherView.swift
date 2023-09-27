@@ -19,26 +19,36 @@ struct WeatherView: View {
             
             
             VStack{
-                VStack(alignment: .leading, spacing: 5){
-                    
-                    Text(weather.name)
-                        .bold().font(.title)
-                    
-                    Text("Today, \(Date().formatted(.dateTime.month().day().hour().minute()))")
-                        .fontWeight(.light)
+                HStack {
+                        VStack(alignment: .center, spacing: 5){
+                            Text(weather.name)
+                                .bold()
+                                .font(.title)
+                            
+                            Text("Today, \(Date().formatted(.dateTime.month().day().hour().minute()))")
+                                .fontWeight(.light)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 45)
+                        .foregroundColor(.white) // Center the text vertically
+                        
+                        Spacer()
                     
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Spacer()
                 
                 VStack{
                     
                     HStack{
-                        VStack(spacing: 20){
+                        
+                        VStack(spacing: 10){
                             Image(systemName: getWeatherIcon(weatherCondition: weather.weather[0].main))
                                       .font(.system(size: 40))
                             
                             Text(weather.weather[0].main)
+                               
                             
                         }
                         .frame(width:150, alignment: .leading)
@@ -48,6 +58,7 @@ struct WeatherView: View {
                             .font(.system(size: 100))
                             .fontWeight(.bold)
                             .padding()
+                            
                     }
                     
                     
@@ -62,16 +73,28 @@ struct WeatherView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 0.0)
+                        .foregroundColor(Color(red: 58 / 255, green: 66 / 255, blue: 81 / 255))
+                        .opacity(0.6)
+                        .edgesIgnoringSafeArea(.all)
+                        .shadow(color: Color.gray, radius: 2, x: 2, y: 2)
+                        .blur(radius: 2)
+                }
+                   
+            )
             
-            VStack{
+            VStack {
                 Spacer()
-                VStack(alignment: .leading, spacing: 20){
+                VStack(alignment: .center, spacing: 20){
                     
-                    Text("Weather Now")
-                        .bold().padding(.bottom)
+                    Text("Weather Now").fontWeight(.heavy)
+                        .bold().padding()
                     
                     HStack{
                         WeatherRow(logo: "thermometer", name: "Min Temp", value: weather.main.tempMin.roundDouble() + "°")
+                            
                         Spacer()
                         WeatherRow(logo: "thermometer", name: "Max Temp", value: weather.main.tempMax.roundDouble() + "°")
                     }
@@ -82,13 +105,24 @@ struct WeatherView: View {
                         WeatherRow(logo: "humidity", name: "Humidity", value: weather.main.humidity.roundDouble() + "%")
                     }
                     
-                }.frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .padding(.bottom, 20)
-                    .foregroundColor(Color(hue: 0.563, saturation: 0.975, brightness: 0.35))
-                    .background(.white)
-                    .cornerRadius(20, corners: [.topLeft, .topRight])
+                }
+                .padding()
+                .padding(.bottom, 20)
+                .foregroundColor(Color.white)
+                .background(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 0.0)
+                            .foregroundColor(Color(red: 58 / 255, green: 66 / 255, blue: 81 / 255))
+                            .opacity(0.6)
+                            .edgesIgnoringSafeArea(.all)
+                            .shadow(color: Color.gray, radius: 2, x: 2, y: 2)
+                            .blur(radius: 2)
+                    }
+                       
+                )
             }
+            
+          
             
             
         }.edgesIgnoringSafeArea(.bottom)
